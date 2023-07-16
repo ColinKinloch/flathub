@@ -1,0 +1,53 @@
+diff --git a/plugins/Common/IldaeilPlugin.cpp b/plugins/Common/IldaeilPlugin.cpp
+index 50d7927..3e2f84c 100644
+--- a/plugins/Common/IldaeilPlugin.cpp
++++ b/plugins/Common/IldaeilPlugin.cpp
+@@ -70,7 +70,7 @@ static const char* getPathForLADSPA()
+         path  = water::File::getSpecialLocation(water::File::winAppData).getFullPathName() + "\\LADSPA;";
+         path += water::File::getSpecialLocation(water::File::winProgramFiles).getFullPathName() + "\\LADSPA";
+        #else
+-        path  = getHomePath() + "/.ladspa:/usr/lib/ladspa:/usr/local/lib/ladspa";
++        path  = getHomePath() + "/.ladspa:/usr/lib/ladspa:/usr/local/lib/ladspa:/app/extensions/Plugins/ladspa";
+        #endif
+     }
+ 
+@@ -116,7 +116,7 @@ static const char* getPathForLV2()
+         path  = water::File::getSpecialLocation(water::File::winAppData).getFullPathName() + "\\LV2;";
+         path += water::File::getSpecialLocation(water::File::winCommonProgramFiles).getFullPathName() + "\\LV2";
+        #else
+-        path = getHomePath() + "/.lv2:/usr/lib/lv2:/usr/local/lib/lv2";
++        path = getHomePath() + "/.lv2:/usr/lib/lv2:/usr/local/lib/lv2:/app/extensions/Plugins/lv2";
+        #endif
+     }
+ 
+@@ -140,7 +140,7 @@ static const char* getPathForVST2()
+         path += water::File::getSpecialLocation(water::File::winProgramFiles).getFullPathName() + "\\Steinberg\\VstPlugins;";
+         path += water::File::getSpecialLocation(water::File::winCommonProgramFiles).getFullPathName() + "\\VST2";
+        #else
+-        path = getHomePath() + "/.vst:/usr/lib/vst:/usr/local/lib/vst";
++        path = getHomePath() + "/.vst:/usr/lib/vst:/usr/local/lib/vst:/app/extensions/Plugins/vst";
+        #endif
+     }
+ 
+@@ -163,7 +163,7 @@ static const char* getPathForVST3()
+         path  = water::File::getSpecialLocation(water::File::winAppData).getFullPathName() + "\\VST3;";
+         path += water::File::getSpecialLocation(water::File::winCommonProgramFiles).getFullPathName() + "\\VST3";
+        #else
+-        path = getHomePath() + "/.vst3:/usr/lib/vst3:/usr/local/lib/vst3";
++        path = getHomePath() + "/.vst3:/usr/lib/vst3:/usr/local/lib/vst3:/app/extensions/Plugins/vst3";
+        #endif
+     }
+ 
+@@ -373,9 +373,9 @@ public:
+             carla_set_engine_option(fCarlaHostHandle, ENGINE_OPTION_PATH_BINARIES, 0, "/Applications/Carla.app/Contents/MacOS");
+             carla_set_engine_option(fCarlaHostHandle, ENGINE_OPTION_PATH_RESOURCES, 0, "/Applications/Carla.app/Contents/MacOS/resources");
+            #else
+-            fDiscoveryTool = "/usr/lib/carla";
+-            carla_set_engine_option(fCarlaHostHandle, ENGINE_OPTION_PATH_BINARIES, 0, "/usr/lib/carla");
+-            carla_set_engine_option(fCarlaHostHandle, ENGINE_OPTION_PATH_RESOURCES, 0, "/usr/share/carla/resources");
++            fDiscoveryTool = "/app/lib/carla";
++            carla_set_engine_option(fCarlaHostHandle, ENGINE_OPTION_PATH_BINARIES, 0, "/app/lib/carla");
++            carla_set_engine_option(fCarlaHostHandle, ENGINE_OPTION_PATH_RESOURCES, 0, "/app/share/carla/resources");
+            #endif
+         }
+ 

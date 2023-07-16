@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="addon">
+  <id>org.freedesktop.LinuxAudio.Plugins.Ildaeil</id>
+  <extends>org.freedesktop.LinuxAudio.BaseExtension</extends>
+  <name>Ildaeil</name>
+  <summary>DISTRHO Ildaeil is mini-plugin host working as a plugin, allowing one-to-one plugin format reusage.</summary>
+  <project_license>GPL-2.0</project_license>
+  <metadata_license>CC0-1.0</metadata_license>
+  <url type="homepage">https://github.com/DISTRHO/Ildaeil/</url>
+  <releases>
+    <release version="v1.3" date="2023-07-15"/>
+  </releases>
+</component>

@@ -1,0 +1,48 @@
+id: org.freedesktop.LinuxAudio.Plugins.Ildaeil
+runtime: org.freedesktop.LinuxAudio.BaseExtension
+sdk: org.freedesktop.Sdk//22.08
+runtime-version: stable
+build-extension: true
+appstream-compose: false
+branch: '22.08'
+
+#add-extensions:
+#  org.freedesktop.LinuxAudio.Plugins:
+#    directory: extensions/Plugins
+#    version: "22.08"
+#    add-ld-path: lib
+#    merge-dirs: ladspa;dssi;lv2;vst;vst3
+#    subdirectories: true
+#    no-autodownload: true
+build-options:
+  prefix: /app/extensions/Plugins/Ildaeil
+  prepend-pkg-config-path: /app/extensions/Plugins/Ildaeil/lib/pkgconfig
+  prepend-ld-library-path: /app/extensions/Plugins/Ildaeil/lib
+modules:
+  - name: Ildaeil
+    buildsystem: simple
+    build-commands:
+      - make PREFIX=${FLATPAK_DEST} VERBOSE=1 -j $FLATPAK_BUILDER_N_JOBS
+      - make PREFIX=${FLATPAK_DEST} install
+    post-install:
+      - ln -s lib/lv2 ${FLATPAK_DEST}/lv2
+      - ln -s lib/vst ${FLATPAK_DEST}/vst
+      - ln -s lib/vst3 ${FLATPAK_DEST}/vst3
+      - find ${FLATPAK_DEST} -name 'carla*' -exec chmod -v +x {} +
+      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo org.freedesktop.LinuxAudio.Plugins.Ildaeil.metainfo.xml
+      - appstream-compose --basename=org.freedesktop.LinuxAudio.Plugins.Ildaeil --prefix=${FLATPAK_DEST}
+        --origin=flatpak org.freedesktop.LinuxAudio.Plugins.Ildaeil
+    sources:
+      - type: archive
+        url: https://github.com/DISTRHO/Ildaeil/releases/download/v1.3/Ildaeil-src-1.3.tar.xz
+        sha256: ac28837ddecb49181404054c0c260ec126eedfc835e236d5064da971a486161a
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/DISTRHO/Ildaeil/releases/latest
+          url-query: '[.assets[] | select(.name | test("Ildaeil-src-[0-9.]+\\.tar\\.xz"))]
+            | first | .browser_download_url'
+          version-query: .tag_name
+      - type: patch
+        path: carla_path.patch
+      - type: file
+        path: org.freedesktop.LinuxAudio.Plugins.Ildaeil.metainfo.xml
