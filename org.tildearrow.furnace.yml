@@ -16,6 +16,28 @@ finish-args:
   - --filesystem=xdg-run/pipewire-0
 
 modules:
+  - name: SDL2
+    buildsystem: autotools
+    config-opts:
+      - --disable-static
+    cleanup:
+      - '*.la'
+      - '*.a'
+      - /bin
+      - /include
+      - /lib/cmake
+      - /lib/pkgconfig
+      - /lib/debug
+      - /share
+    sources:
+      - type: archive
+        url: https://github.com/libsdl-org/SDL/archive/refs/tags/release-2.28.4.tar.gz
+        sha256: fde19f21e04329ce5be5f25616ab213a6eb2529f942c5ff6217ca2272d5e647d
+        x-checker-data:
+          type: anitya
+          project-id: 4779
+          url-template: https://github.com/libsdl-org/SDL/archive/refs/tags/release-$version.tar.gz
+
   - name: fmt
     buildsystem: cmake-ninja
     config-opts:
